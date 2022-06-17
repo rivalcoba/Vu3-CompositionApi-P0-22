@@ -17,10 +17,9 @@ const newItemHighPriority = ref(false);
   <h1>{{ header }}</h1>
 
   <!-- Agrupando en un div las entradas -->
-  <div class="add-item fomr">
+  <form v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })" class="add-item form">
     <!-- entrada de texto -->
     <input
-      v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })"
       v-model.trim="newItem"
       type="text"
       placeholder="Add Item"
@@ -32,12 +31,11 @@ const newItemHighPriority = ref(false);
     </label>
     <!-- Boton -->
     <button
-      v-on:click="items.push({ id: items.length + 1, label: newItem })"
       class="btn btn-primary"
     >
       Save Item
     </button>
-  </div>
+  </form>
 
   <!-- Lista -->
   <ul>
