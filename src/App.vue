@@ -15,12 +15,30 @@ const newItemHighPriority = ref(false);
 
 <template>
   <h1>{{ header }}</h1>
-  <input v-model.trim="newItem" type="text" placeholder="Add Item" />
-  <!-- Caja de seleccion de prioridad -->
-  <label>
-    <input type="checkbox" v-model="newItemHighPriority">
-    High Priority
-  </label>
+
+  <!-- Agrupando en un div las entradas -->
+  <div class="add-item fomr">
+    <!-- entrada de texto -->
+    <input
+      v-on:keyup.enter="items.push({ id: items.length + 1, label: newItem })"
+      v-model.trim="newItem"
+      type="text"
+      placeholder="Add Item"
+    />
+    <!-- Caja de seleccion de prioridad -->
+    <label>
+      <input type="checkbox" v-model="newItemHighPriority" />
+      High Priority
+    </label>
+    <!-- Boton -->
+    <button
+      v-on:click="items.push({ id: items.length + 1, label: newItem })"
+      class="btn btn-primary"
+    >
+      Save Item
+    </button>
+  </div>
+
   <!-- Lista -->
   <ul>
     <li v-for="({ id, label }, index) in items" key="id">⚜ {{ label }}</li>
