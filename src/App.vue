@@ -11,34 +11,32 @@ const items = ref([
 ]);
 const newItem = ref("");
 const newItemHighPriority = ref(false);
+// Metodo para agregar nuevos elementos a la lista
+const saveItem = () => {
+  items.value.push({ id: items.value.length + 1, label: newItem.value });
+  // Reiniciendo la entrada de texto
+  newItem.value = "";
+};
 </script>
 
 <template>
   <h1>{{ header }}</h1>
 
   <!-- Agrupando en un div las entradas -->
-  <form v-on:submit.prevent="items.push({ id: items.length + 1, label: newItem })" class="add-item form">
+  <form v-on:submit.prevent="saveItem" class="add-item form">
     <!-- entrada de texto -->
-    <input
-      v-model.trim="newItem"
-      type="text"
-      placeholder="Add Item"
-    />
+    <input v-model.trim="newItem" type="text" placeholder="Add Item" />
     <!-- Caja de seleccion de prioridad -->
     <label>
       <input type="checkbox" v-model="newItemHighPriority" />
       High Priority
     </label>
     <!-- Boton -->
-    <button
-      class="btn btn-primary"
-    >
-      Save Item
-    </button>
+    <button class="btn btn-primary">Save Item</button>
   </form>
 
   <!-- Lista -->
   <ul>
-    <li v-for="({ id, label }, index) in items" key="id">⚜ {{ label }}</li>
+    <li v-for="{ id, label } in items" v-bind:key="id">⚜ {{ label }}</li>
   </ul>
 </template>
