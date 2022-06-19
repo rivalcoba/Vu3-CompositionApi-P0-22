@@ -2,12 +2,14 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref } from "vue";
+// Boton que oculta el formulario
+const editing = ref(false);
 
 const header = ref("🛒 Shopping List App");
 const items = ref([
-  { id: 1, label: "10 bolillos" },
-  { id: 2, label: "1 lata de frijoles" },
-  { id: 3, label: "2 lata de atún" },
+  // { id: 1, label: "10 bolillos" },
+  // { id: 2, label: "1 lata de frijoles" },
+  // { id: 3, label: "2 lata de atún" },
 ]);
 const newItem = ref("");
 const newItemHighPriority = ref(false);
@@ -23,7 +25,7 @@ const saveItem = () => {
   <h1>{{ header }}</h1>
 
   <!-- Agrupando en un div las entradas -->
-  <form v-on:submit.prevent="saveItem" class="add-item form">
+  <form v-if="editing" v-on:submit.prevent="saveItem" class="add-item form">
     <!-- entrada de texto -->
     <input v-model.trim="newItem" type="text" placeholder="Add Item" />
     <!-- Caja de seleccion de prioridad -->
@@ -39,4 +41,5 @@ const saveItem = () => {
   <ul>
     <li v-for="{ id, label } in items" v-bind:key="id">⚜ {{ label }}</li>
   </ul>
+  <p v-if="items.length === 0">🥀 No hay elementos en la lista</p>
 </template>
