@@ -2,9 +2,8 @@
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 import { ref } from "vue";
-// Boton que oculta el formulario
+// Variable que controla la visualizacuib el formulario
 const editing = ref(false);
-
 const header = ref("🛒 Shopping List App");
 const items = ref([
   // { id: 1, label: "10 bolillos" },
@@ -19,10 +18,22 @@ const saveItem = () => {
   // Reiniciendo la entrada de texto
   newItem.value = "";
 };
+// Funcion que alterna el valor de la variable editing
+const doEdit = (edit)=>{
+  editing.value = edit;
+  // Limpiando la entrada de texto
+  // en caso de que se oculte o muestre
+  // el formulario
+  newItem.value = "";
+};
 </script>
 
 <template>
-  <h1>{{ header }}</h1>
+  <div class="header">
+    <h1>{{ header }}</h1>
+    <button v-if="editing" @click="doEdit(false)" class="btn">Cancel</button>
+    <button v-else @click="doEdit(true)" class="btn btn-primary">Add Item</button>
+  </div>
 
   <!-- Agrupando en un div las entradas -->
   <form v-if="editing" v-on:submit.prevent="saveItem" class="add-item form">
