@@ -10,6 +10,8 @@ const characterCount = computed(() => {
   // Toda propiedad computada debe regresar un valor
   return newItem.value.length;
 });
+// Creando propiedad computada que invierte items de la lista
+const reversedItems = computed(() => [...items.value].reverse());
 const items = ref([
   { id: 1, label: "10 bolillos", purchased: true, highPriority: true },
   { id: 2, label: "1 lata de frijoles", purchased: false, highPriority: true },
@@ -66,14 +68,12 @@ const togglePurchased = (item) => {
     </button>
   </form>
   <!-- Contador -->
-  <p class="counter">
-    {{ characterCount }} / 200
-  </p>
+  <p class="counter">{{ characterCount }} / 200</p>
 
   <!-- Lista -->
   <ul>
     <li
-      v-for="item in items"
+      v-for="item in reversedItems"
       @click="togglePurchased(item)"
       v-bind:key="item.id"
       :class="{ strikeout: item.purchased, priority: item.highPriority }"
